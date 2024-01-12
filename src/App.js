@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import RenderCounter from './RenderCounter';
+import { TimeProvider } from './TimeContext';
 
-function App() {
+const Home = () => (
+  <div>
+    <h1>Home</h1>
+    <p>Welcome to the render counter app!</p>
+  </div>
+);
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TimeProvider>
+      
+      <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/render">Render Counter</Link>
+            </li>
+            <li>
+              <Link to="/not-render">Not Rendering</Link>
+            </li>
+          </ul>
+        </nav>
+
+      <Routes>
+        <Route path="/render" element={<RenderCounter/>} />
+        <Route path="/not-render" element={<p>Component not rendered</p>} />
+        <Route exact path="/" element={<Home/>} />
+      </Routes>
+    </TimeProvider>
   );
-}
+};
 
 export default App;
